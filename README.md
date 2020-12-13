@@ -8,7 +8,6 @@ Snake
 Sonja Kaiser
 
 # Featureliste 
-
 -Spieler bewegt sich frei in der Szene mittels WSAD
 -Interaktive Kamera
 -Mittels O wechsel zu Orbit Kamera
