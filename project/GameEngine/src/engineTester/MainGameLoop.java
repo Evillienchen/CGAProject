@@ -1,3 +1,4 @@
+/* Dieser Code wurde mit Hilfe des Tutorials von ThinMatrix erstellt. https://www.youtube.com/watch?v=WMiggUPst-Q&list=PLRIWtICgwaX0u7Rf9zkZhLoLuZVfUksDP&index=2 */
 package engineTester;
 
 import java.io.File;
@@ -50,7 +51,6 @@ public class MainGameLoop {
 		
 		RawModel model = OBJLoader.loadObjModel("box", loader);
 		RawModel model2 = OBJLoader.loadObjModel("sphere", loader);
-		//RawModel model3 = OBJLoader.loadObjModel("box", loader);
 		
 		TexturedModel staticModel = new TexturedModel(model,new ModelTexture(loader.loadTexture("box")));
 		TexturedModel fruitModel = new TexturedModel(model2,new ModelTexture(loader.loadTexture("ground_emit")));
@@ -82,9 +82,6 @@ public class MainGameLoop {
 		
 		
 		Light light = new Light(new Vector3f(2000,2000,2000),new Vector3f(1,1,1));
-		//List<GuiTexture> guiTextures = new ArrayList<GuiTexture>();
-		//GuiTexture shadowMap = new GuiTexture(renderer.getShadowMaptexture(),new Vector2f(0.5f,0.5f), new Vector2f(0.5f,0.5f));
-		//guiTextures.add(shadowMap);
 		Terrain terrain = new Terrain(0,-1,loader,new ModelTexture(loader.loadTexture("grass")));
 		Terrain terrain2 = new Terrain(-1,-1,loader,new ModelTexture(loader.loadTexture("grass")));
 		
@@ -115,18 +112,20 @@ public class MainGameLoop {
 				try {
 					
 					
+					player.setPosition(new Vector3f(150,5,-50));
+					counter = 0;
+					text.remove();
+					text.setText(counter+""); 
+					TimeUnit.SECONDS.sleep(1);
 					//ate = false;
 					for(int j = listOfFruits.size()-1; j>=0;j--) {
 						
-						TimeUnit.SECONDS.sleep(1);
+						
 						
 						entities.remove(listOfFruits.get(j));
 						listOfFruits.remove(j); 
 						
-						player.setPosition(new Vector3f(100,5,-50));
-						counter = 0;
-						text.remove();
-						text.setText(counter+""); 
+						
 						
 						
 					}
@@ -157,7 +156,7 @@ public class MainGameLoop {
 				System.out.println(counter);
 			}
 			
-			//System.out.println(player.getPosition());
+			
 			
 			if(ate) {
 				for(int i = 0; i<listOfFruits.size();i++) {

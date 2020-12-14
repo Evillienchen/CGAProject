@@ -1,3 +1,4 @@
+/* Dieser Code wurde mit Hilfe des Tutorials von ThinMatrix erstellt. https://www.youtube.com/watch?v=WMiggUPst-Q&list=PLRIWtICgwaX0u7Rf9zkZhLoLuZVfUksDP&index=2 */
 package entities;
 
 import java.util.concurrent.TimeUnit;
@@ -17,12 +18,14 @@ public class Camera {
 	private float roll;
 	private Boolean playerCamera = true;
 	private Player player;
+	private Boolean waitForIt = true;
 	
 	public Camera(Player player){
 		this.player = player;
 	}
 	
 	public void move(){
+		
 		checkInputs();
 		if(playerCamera) {
 			calculateZoom();
@@ -57,10 +60,9 @@ public class Camera {
 	
 	private void calculateCameraPosition(float horizDistance, float verticDistance) {
 		float theta = player.getRotY() + angleAroundPlayer;
-		//theta immer 180
+		
 		
 		float offsetX = (float) (horizDistance * Math.sin(Math.toRadians(theta)));
-		//System.out.println(offsetX);
 		float offsetZ = (float) (horizDistance * Math.cos(Math.toRadians(theta)));
 		position.x = player.getPosition().x - offsetX;
 		position.z = player.getPosition().z - offsetZ;
@@ -105,6 +107,7 @@ public class Camera {
 		
 		if(Keyboard.isKeyDown(Keyboard.KEY_O)) {
 			if(playerCamera) {
+				
 				
 				playerCamera = false;
 				pitch = 90;

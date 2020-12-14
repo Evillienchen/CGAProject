@@ -1,3 +1,4 @@
+/* Dieser Code wurde mit Hilfe des Tutorials von ThinMatrix erstellt. https://www.youtube.com/watch?v=WMiggUPst-Q&list=PLRIWtICgwaX0u7Rf9zkZhLoLuZVfUksDP&index=2 */
 package fontRendering;
 
 import org.lwjgl.util.vector.Vector2f;
