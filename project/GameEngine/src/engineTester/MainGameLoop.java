@@ -42,8 +42,6 @@ public class MainGameLoop {
 		Boolean ate = false;
 		
 		
-		
-		
 		FontType font = new FontType(loader.loadTexture("verdana"), new File("res/verdana.fnt"));
 		GUIText text = new GUIText(counter+"",1,font, new Vector2f (0,0),1f,true);
 		
@@ -58,10 +56,6 @@ public class MainGameLoop {
 		
 		Random random = new Random();
 		
-		/*for(int i=0;i<1;i++){
-			entities.add(new Entity(fruitModel, new Vector3f(random.nextFloat()*700 - 400,3,random.nextFloat() * -500),0,0,0,3));
-			//entities.get(i);
-		}*/
 		entities.add(new Entity(fruitModel, new Vector3f(random.nextFloat()*400 - 230,3,random.nextFloat() * -300),0,0,0,3));
 		
 		
@@ -78,10 +72,8 @@ public class MainGameLoop {
 		
 		
 		
-		//System.out.println(entities.get(0).getPosition());
-		
-		
 		Light light = new Light(new Vector3f(2000,2000,2000),new Vector3f(1,1,1));
+		
 		Terrain terrain = new Terrain(0,-1,loader,new ModelTexture(loader.loadTexture("grass")));
 		Terrain terrain2 = new Terrain(-1,-1,loader,new ModelTexture(loader.loadTexture("grass")));
 		
@@ -95,40 +87,29 @@ public class MainGameLoop {
 		
 		MasterRenderer renderer = new MasterRenderer();
 
-		
 		while(!Display.isCloseRequested()){
+			
 			camera.move();
-			//System.out.println(camera.getPosition());
-			//System.out.println(player.getRotY()+camera.getAngleAroundPlayer());
 			player.move();
 			
 			
-			//renderer.renderShadowMap(entities, light);
-			//System.out.println(player.getPosition());
+			//Kisten collider
 			if(player.getPosition().z > 0 || player.getPosition().z <-300 || player.getPosition().x <-300 || player.getPosition().x > 300) {
 				System.out.println("Du bist tot");
-	
+				for(int j = listOfFruits.size()-1; j>=0;j--) {
+				
+					entities.remove((int)listOfFruits.get(j));
+					listOfFruits.remove(j); 
+					
+				}
 				entities.set(0,null);
 				try {
-					
-					
 					player.setPosition(new Vector3f(150,5,-50));
 					counter = 0;
 					text.remove();
 					text.setText(counter+""); 
 					TimeUnit.SECONDS.sleep(1);
-					//ate = false;
-					for(int j = listOfFruits.size()-1; j>=0;j--) {
-						
-						
-						
-						entities.remove(listOfFruits.get(j));
-						listOfFruits.remove(j); 
-						
-						
-						
-						
-					}
+					
 					
 				} catch (InterruptedException e) {
 					
@@ -137,18 +118,19 @@ public class MainGameLoop {
 				entities.set(0, new Entity(fruitModel, new Vector3f(random.nextFloat()*400 - 200,3,random.nextFloat() * -300),0,0,0,3));
 				
 				
-				
-				counter = 0;
+
 			}
 			
 			
-			
+			//Frucht collider
 			if(entities.get(0).getPosition().getX()+8 >= player.getPosition().getX() && entities.get(0).getPosition().getX()-8 <= player.getPosition().getX() 
 					&& entities.get(0).getPosition().getZ()+8 >= player.getPosition().getZ() && entities.get(0).getPosition().getZ()-8 <= player.getPosition().getZ()) {
 				System.out.println("Ich habe die Kugel gefressen");
 				entities.set(0, new Entity(fruitModel, new Vector3f(random.nextFloat()*400 - 230,3,random.nextFloat() * -230),0,0,0,3));
 				ate = true;
 				entities.add(new Entity(snake, new Vector3f(player.getPosition()),0,0,0,3));
+				System.out.println("Entity Size" + (entities.size()-1));
+				
 				listOfFruits.add(entities.size()-1);
 				counter += 10;
 				text.remove();
@@ -165,6 +147,7 @@ public class MainGameLoop {
 						entities.set(0,null);
 						try {
 							TimeUnit.SECONDS.sleep(1);
+							System.out.println("Du bist tot");
 							player.setPosition(new Vector3f(100,5,-50));
 							counter = 0;
 							text.remove();
@@ -180,21 +163,17 @@ public class MainGameLoop {
 						
 						ate = false;
 						for(int j = listOfFruits.size()-1; j>=0;j--) {
-							
-							entities.remove(listOfFruits.get(j));
+							entities.remove((int)listOfFruits.get(j));
 							listOfFruits.remove(j); 
-							i = 100;
+							
 							
 						}
 						
 						
 					}
-					//entities.get(listOfFruits.get(i)).setPosition(new Vector3f(player.getPosition().getX()-5f*(i+1),player.getPosition().getY(),player.getPosition().getZ()-5f*(i+1)));
-					//entities.get(listOfFruits.get(0)).
-					
-					//180 - (player.getRotY()+ angleAroundPlayer)
+			
 				}
-				//entities.get(listOfFruits.get(0)).setPosition(new Vector3f(player.getPosition().getX()-5f,player.getPosition().getY(),player.getPosition().getZ()-5f));
+				
 			}
 			
 			renderer.processEntity(player);

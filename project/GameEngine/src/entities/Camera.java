@@ -108,16 +108,16 @@ public class Camera {
 		if(Keyboard.isKeyDown(Keyboard.KEY_O)) {
 			if(playerCamera) {
 				
-				
 				playerCamera = false;
 				pitch = 90;
 				
-				float offsetX = (float) (100 * Math.sin(Math.toRadians(180)));
+				float offsetX = (float) ( Math.sin(Math.toRadians(180)));
 				float offsetZ = (float) (150 * Math.cos(Math.toRadians(180)));
 				position.x = offsetX;
 				position.z = offsetZ;
 				position.y = 450;
-				this.yaw = 180;
+				this.yaw = 0;
+				
 				
 				
 			}else {
